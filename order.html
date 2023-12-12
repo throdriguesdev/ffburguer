@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Pedido - Sistema FFBurguer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Menu para navegação -->
+    <div class="nav">
+        <a href="index.html">Página Inicial</a>
+        <a href="view-orders.html">Consultar Pedidos</a>
+    </div>
+
+    <div class="container">
+        <h1>Criar Pedido</h1>
+        <form id="orderForm">
+            <!-- Informações do cliente e valor total -->
+            <div class="row">
+                <div class="input-group">
+                    <label for="nomeCliente">Nome:</label>
+                    <input type="text" id="nomeCliente" name="nomeCliente" required>
+                </div>
+                <div class="input-group">
+                    <label for="endereco">Endereço:</label>
+                    <input type="text" id="endereco" name="endereco" required>
+                </div>
+                <div class="input-group">
+                    <label for="valor">Total (R$):</label>
+                    <input type="number" id="valor" name="valor" required>
+                </div>
+                <!-- Método de Pagamento -->
+                <div class="input-group">
+                    <label for="formaPagamento">Pagamento:</label>
+                    <select id="formaPagamento" name="formaPagamento" onchange="checkPaymentMethod(this)">
+                        <option value="dinheiro">Dinheiro (entrega)</option>
+                        <option value="cartao_debito">Débito (entrega)</option>
+                        <option value="cartao_credito">Crédito (entrega)</option>
+                        <option value="ifood">iFood (online)</option>
+                        <option value="pix">PIX (online)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Se cliente precisa de troco -->
+            <div class="input-group" id="trocoGroup">
+                <label>Cliente precisa de troco?</label>
+                <input type="radio" name="troco" value="sim" onclick="displayChangeAmount(true)"> Sim
+                <input type="radio" name="troco" value="nao" onclick="displayChangeAmount(false)"> Não
+                <div id="valorTrocoGroup" style="display: none;">
+                    <label>Valor para troco (R$):</label>
+                    <input type="number" name="valorTroco">
+                </div>
+            </div>
+
+            <!-- Itens do pedido -->
+            <h2>Itens do Pedido:</h2>
+            <div id="items"></div>
+
+            <div class="input-group">
+                <button type="button" id="adicionarItem">+ Adicionar item</button>
+            </div>
+
+            <div class="input-group">
+                <button type="submit" class="btn"><span>Enviar Pedido</span></button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const itemsContainer = document.getElementById("items");
+        const adicionarItem = document.getElementById("adicionarItem");
+
+        function displayChangeAmount(shouldDisplay) {
+            document.getElementById("valorTrocoGroup").style.display = shouldDisplay ? "block" : "none";
+        }
+
+        function checkPaymentMethod(selectElement) {
+            const trocoGroup = document.getElementById("trocoGroup");
+            if (selectElement.value === "dinheiro") {
+                trocoGroup.style.display = "block";
+            } else {
+                trocoGroup.style.display = "none";
+            }
+        }
+
+        adicionarItem.addEventListener("click", function() {
+            const newItemDiv = document.createElement('div');
+            newItemDiv.className = 'item-group';
+            const categories = ['Hamburguer', 'Combo', 'Bebidas', 'Sobremesas', 'Refrigerante'];
+
+            const categorySelect = document.createElement('select');
+            categorySelect.name = 'itemCategory[]';
+            categorySelect.addEventListener("change", function(e) {
+                const parentDiv = e.target.parentNode;
+                const obsTextarea = parentDiv.querySelector('textarea[name="itemObservation[]"]');
+                if (e.target.value === "refrigerante") {
+                    obsTextarea.style.display = "none";
+                } else {
+                    obsTextarea.style.display = "block";
+                }
+            });
+
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.toLowerCase();
+                option.textContent = category;
+                categorySelect.appendChild(option);
+            });
+            newItemDiv.appendChild(categorySelect);
+
+            const itemNameInput = document.createElement('input');
+            itemNameInput.type = 'text';
+            itemNameInput.name = 'itemName[]';
+            itemNameInput.placeholder = 'Nome do Item';
+            newItemDiv.appendChild(itemNameInput);
+
+            const itemQuantityInput = document.createElement('input');
+            itemQuantityInput.type = 'number';
+            itemQuantityInput.name = 'itemQuantity[]';
+            itemQuantityInput.placeholder = 'Quantidade';
+            newItemDiv.appendChild(itemQuantityInput);
+
+            const itemObservationTextarea = document.createElement('textarea');
+            itemObservationTextarea.name = 'itemObservation[]';
+            itemObservationTextarea.placeholder = 'Observações';
+            newItemDiv.appendChild(itemObservationTextarea);
+
+            itemsContainer.appendChild(newItemDiv);
+        });
+
+        // Ativa imediatamente o evento click para criar o primeiro item por padrão
+        adicionarItem.click();
+
+        // Chama checkPaymentMethod inicialmente para setar o display correto do grupo troco
+        checkPaymentMethod(document.getElementById("formaPagamento"));
+    </script>
+</body>
+
+</html>
