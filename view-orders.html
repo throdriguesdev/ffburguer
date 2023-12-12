@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Pedidos - Sistema FFBurguer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Menu para navegação -->
+    <div class="nav">
+        <a href="index.html">Página Inicial</a>
+        <a href="order.html">Criar Pedido</a>
+    </div>
+
+    <div class="container">
+        <h1>Consultar Pedidos</h1>
+
+        <!-- Filtro de Data e Opções Rápidas -->
+        <div class="date-filter">
+            <label for="filterDate">Filtrar por Data:</label>
+            <input type="date" id="filterDate">
+            <button type="button" id="applyFilter">Aplicar Filtro</button>
+            <button type="button" id="filterToday">Hoje</button>
+            <button type="button" id="filterLastWeek">Última Semana</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Nome do Cliente</th>
+                    <th>Endereço</th>
+                    <th>Valor Total (R$)</th>
+                    <th>Forma de Pagamento</th>
+                    <th>Itens</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Exemplos estáticos de pedidos. -->
+                <tr>
+                    <td class="status-recebido">Recebido</td>
+                    <td>João Silva</td>
+                    <td>Rua das Flores, 123</td>
+                    <td>45.00</td>
+                    <td>Dinheiro (entrega)</td>
+                    <td>Hamburguer Clássico (2), Batata Frita (1)</td>
+                    <td>26/10/2023</td>
+                    <td>15:30</td>
+                </tr>
+                <tr>
+                    <td class="status-entregue">Entregue</td>
+                    <td>Maria Oliveira</td>
+                    <td>Rua da Paz, 456</td>
+                    <td>60.00</td>
+                    <td>Cartão de Crédito (entrega)</td>
+                    <td>Combo Burguer + Bebida (1), Sobremesa Chocolate (1)</td>
+                    <td>25/10/2023</td>
+                    <td>18:45</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
