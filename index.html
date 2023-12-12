@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema FFBurguer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            Sistema FFBurguer
+            <div id="localTime"></div>
+        </header>
+
+        <nav class="nav">
+            <a href="/">Página Inicial</a>
+            <a href="/order.html">Criar Pedido</a>
+            <a href="/view-orders.html">Consultar Pedidos</a>
+        </nav>
+
+        <main>
+            <!-- Your main content for the index page goes here -->
+            <!-- You can add any content you want here -->
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2023 FFBurguer - Todos os direitos reservados.
+    </footer>
+
+    <script>
+        function updateLocalTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('localTime').textContent = `Hora local: ${timeString}`;
+        }
+
+        setInterval(updateLocalTime, 1000);
+    </script>
+</body>
+
+</html>
